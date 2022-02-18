@@ -22,6 +22,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springframework.cloud:spring-cloud-stream")
     implementation("org.springframework.cloud:spring-cloud-stream-binder-kafka")
+    implementation("com.azure.spring:azure-spring-cloud-stream-binder-eventhubs:2.13.0")
     implementation("org.springframework.cloud:spring-cloud-stream-binder-kafka-streams")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

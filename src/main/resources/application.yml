@@ -1,25 +1,44 @@
 spring:
   cloud:
+    azure:
+      eventhub:
+        connection-string: { CONNECTION_STRING }
+        checkpoint-storage-account: { STORAGE_ACCOUNT }
+        checkpoint-access-key: { ACCESS_KEY }
+        checkpoint-container: { CHECK_POINT_CONTAINER }
     stream:
       function:
-        definition: producer;processor
+        definition: producer;processor;consumer
       bindings:
         producer-out-0:
           destination: topic_0
+          group: $Default
         processor-in-0:
           consumer:
             concurrency: 6
           destination: topic_0
+          group: $Default
         processor-out-0:
           destination: topic_1
+          group: $Default
+        consumer-in-0:
+          consumer:
+            concurrency: 6
+          destination: topic_1
+          group: $Default
       kafka:
         binder:
-          brokers: { BROKERS_HERE }
+          brokers: { BROKER_URL }
           configuration:
             sasl:
               mechanism: PLAIN
               jaas:
-                config: { CONFIG_HERE }
+                config: { JAAS_CONFIG }
             security:
               protocol: SASL_SSL
-      default-binder: kafka
+      default-binder: eventhub
+
+logging:
+  level:
+    root: ERROR
+    com.example.kafkaexample: INFO
