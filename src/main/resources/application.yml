@@ -1,0 +1,25 @@
+spring:
+  cloud:
+    stream:
+      function:
+        definition: producer;processor
+      bindings:
+        producer-out-0:
+          destination: topic_0
+        processor-in-0:
+          consumer:
+            concurrency: 6
+          destination: topic_0
+        processor-out-0:
+          destination: topic_1
+      kafka:
+        binder:
+          brokers: { BROKERS_HERE }
+          configuration:
+            sasl:
+              mechanism: PLAIN
+              jaas:
+                config: { CONFIG_HERE }
+            security:
+              protocol: SASL_SSL
+      default-binder: kafka
